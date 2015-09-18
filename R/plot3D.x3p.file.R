@@ -13,6 +13,7 @@
 #' @param num.slices number of points desired in the y-direction.
 #' @param aspect aspect ratios
 #' @param plot.type "points" or "surface"
+#' @param verbose binary value, if set to TRUE parts of the header file are reported.
 #' 
 #' @return a plot.
 #' 
@@ -26,7 +27,7 @@
 #' ## fairly large example, only to check functionality for now
 #' plot3D.x3p.file(glock.x3p.info, plot.type="surface") 
 #--------------------------------------------
-plot3D.x3p.file<-function(x3p.surf.file.info, num.x.pts=NULL, num.slices=NULL, aspect=c(1,0.3,0.2), plot.type="points") {
+plot3D.x3p.file<-function(x3p.surf.file.info, num.x.pts=NULL, num.slices=NULL, aspect=c(1,0.3,0.2), plot.type="points", verbose=FALSE) {
   
   head.info<-x3p.surf.file.info[[1]]
   print(head.info)
@@ -55,17 +56,19 @@ plot3D.x3p.file<-function(x3p.surf.file.info, num.x.pts=NULL, num.slices=NULL, a
   
   tot.num.pts <- length(dec.col.idxs)*length(dec.row.idxs)
   
-  print(paste("# y-points: ",length(dec.row.idxs)))
-  print(paste("# x-points: ",length(dec.col.idxs)))
-  print(paste("Total # points: ", tot.num.pts))
-  
-  #More than 500,000 pts? Ask to plot.
-  if(tot.num.pts>=5e5){
-    print("Lots of points. Sure you want to do this? (y/n)")
-    ans <- readline()
-    if(ans=="n") {
-      print("OK. Won't try to plot.")
-      return()
+  if (verbose) {
+    print(paste("# y-points: ",length(dec.row.idxs)))
+    print(paste("# x-points: ",length(dec.col.idxs)))
+    print(paste("Total # points: ", tot.num.pts))
+    
+    #More than 500,000 pts? Ask to plot.
+    if(tot.num.pts>=5e5){
+      print("Lots of points. Sure you want to do this? (y/n)")
+      ans <- readline()
+      if(ans=="n") {
+        print("OK. Won't try to plot.")
+        return()
+      }
     }
   }
   
