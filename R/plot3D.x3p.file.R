@@ -27,10 +27,10 @@
 #' ## fairly large example, only to check functionality for now
 #' plot3D.x3p.file(glock.x3p.info, plot.type="surface") 
 #--------------------------------------------
-plot3D.x3p.file<-function(x3p.surf.file.info, num.x.pts=NULL, num.slices=NULL, aspect=c(1,0.3,0.2), plot.type="points", verbose=FALSE) {
+plot3D.x3p.file<-function(x3p.surf.file.info, num.x.pts=NULL, num.slices=NULL, aspect=c(1,0.3,0.2), plot.type="surface", verbose=FALSE) {
   
   head.info<-x3p.surf.file.info[[1]]
-  print(head.info)
+  if (verbose) print(head.info)
   surf.mat<-x3p.surf.file.info[[2]]
   
   # Downsample the surface points for faster plotting:
